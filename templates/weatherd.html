@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    weather
+{% endblock %}
+
+{% block main %}
+
+<body>
+    <main>
+        <p>{{ location.layer }}, {{ location.region }}, {{ location.country }} {{ location.postcode }} </p>
+        <div class="row">
+            <div class="table-responsive col-md-6">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Temp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>temp</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>humid</td>
+                            <td>very</td>
+                        </tr>
+                        <tr>
+                            <td>wind</td>
+                            <td>wow</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive col-md-6">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Temp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>temp</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>humid</td>
+                            <td>very</td>
+                        </tr>
+                        <tr>
+                            <td>wind</td>
+                            <td>wow</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+{% endblock %}

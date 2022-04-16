@@ -10,7 +10,30 @@
     <main>
         <p>{{ location.layer }}, {{ location.region }}, {{ location.country }} {{ location.postcode }} </p>
         <div class="row">
-            <div class="table-responsive col-md-6">
+            <div class="table-responsive col-md-3">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Temp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Temp</td>
+                            <td>{{ weather.temp }}&#8451</td>
+                        </tr>
+                        <tr>
+                            <td>humid</td>
+                            <td>very</td>
+                        </tr>
+                        <tr>
+                            <td>wind</td>
+                            <td>wow</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive col-md-2">
                 <table>
                     <thead>
                         <tr>
@@ -33,28 +56,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive col-md-6">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Temp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>temp</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>humid</td>
-                            <td>very</td>
-                        </tr>
-                        <tr>
-                            <td>wind</td>
-                            <td>wow</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="table-responsive col-md-2">
+                <p>{{ word.word }}</p>
+                <p>{{word.definitions.0.definition}}</p>
             </div>
         </div>
 

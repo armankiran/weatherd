@@ -30,5 +30,5 @@ def getweather(lat, lon, unit):
     lon = round(int(lon))
     api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,daily,alerts&units={unit}&appid={API_KEY}"
     weather = requests.get(api_url).json()
-
+    print('yo')
     return weather

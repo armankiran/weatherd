@@ -32,6 +32,8 @@ def getcity(city, country):
     'lon': response['lon']
   }
 
+  return city
+
 
 def getweather(lat, lon, unit):
     '''get weather details from API'''

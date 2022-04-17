@@ -31,6 +31,7 @@ def weatherd():
     '''get postcode from url and return location and weather data'''
     # turn postcode into location data
     if request.method == "GET":
+        #TODO reject symbols
         postcode = request.args.get("postcode")
         location = getloc(postcode)
 

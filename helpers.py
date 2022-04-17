@@ -1,10 +1,13 @@
 from dotenv import load_dotenv
+from datetime import datetime
 import os
 import requests
-from datetime import datetime
+import csv
+import random
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
+DATE = os.getenv("DATE")
 
 def getloc(postcode):
     '''get location details from postcode'''
@@ -39,7 +42,7 @@ def getweather(lat, lon, unit):
     '''get weather details from API'''
     lat = round(int(lat))
     lon = round(int(lon))
-    api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,daily,alerts&units={unit}&appid={API_KEY}"
+    api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,alerts&units={unit}&appid={API_KEY}"
     response = requests.get(api_url).json()
     weather = {
         'dt': datetime.utcfromtimestamp(response['current']['dt']).strftime('%H:%M:%S'),
@@ -58,10 +61,44 @@ def getweather(lat, lon, unit):
         'wind_gust': response['current']['wind_gust'],
         'main': response['current']['weather'][0]['id'],
         'main': response['current']['weather'][0]['main'],
-        'description': response['current']['weather'][0]['description']
+        'description': response['current']['weather'][0]['description'],
+        'daily_temp': response['daily'][0]['temp']['day'],
+        'daily_id': response['daily'][0]['weather'][0]['id'],
+        'daily_main': response['daily'][0]['weather'][0]['main']
     }
+    print(weather)
     return weather
 
+
+def getcitylist(city_list):
+  '''get city list from db and return dict with maximum len of 59 cities to the api limitations'''
+  with open(city_list, newline='') as cities:
+    reader = csv.reader(cities)
+    next(reader)
+    results = dict(reader)
+    # remove random cities if list size 
+    if len(results) > 58:
+      for i in range(len(results) - 58):
+        results.pop(random.choice(list(results.keys())))
+
+    # get weather data for cities
+  return results
+
+getcitylist('citydb.csv')
+
+def getall():
+  '''get overall data from cities with '''
+  with open('totaldb.csv', 'r+', newline='') as total:
+    reader = csv.reader(total)
+    total_list = list(reader)
+    date = datetime.now().date()
+    if total_list[1][3] != date:
+      total_list[1][3] = date
+      #TODO copy city data to totaldb csv
+      writer = csv.writer(total)
+      writer.writerows(total_list)
+
+getall()
 
 def getword():
     '''get the word meaning from dict api'''

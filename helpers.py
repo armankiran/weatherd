@@ -84,7 +84,6 @@ def getcitylist(city_list):
     # get weather data for cities
   return results
 
-getcitylist('citydb.csv')
 
 def getall():
   '''get overall data from cities with '''
@@ -92,13 +91,24 @@ def getall():
     reader = csv.reader(total)
     total_list = list(reader)
     date = datetime.now().date()
-    if total_list[1][3] != date:
-      total_list[1][3] = date
+    if total_list[1][4] != date:
+      total_list[1][4] = date
       #TODO copy city data to totaldb csv
+      # turn citydb to nested lists
+      city_dict = getcitylist('citydb.csv')
+      city_list = []
+      # for key, value in city_dict.items():
+      #   prop_list = []
+      #   prop_list.append(key)
+      #   prop_list.append(value)
+      #   city_list.append(prop_list
+      print(city_list)
+      total.truncate(0)
       writer = csv.writer(total)
       writer.writerows(total_list)
+  
 
-getall()
+
 
 def getword():
     '''get the word meaning from dict api'''

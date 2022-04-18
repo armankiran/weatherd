@@ -14,6 +14,8 @@ def weather():
     '''get postcode and check validity'''
     if request.method == "POST":
         postcode = request.form.get("postcode")
+        if postcode == '':
+            postcode = request.form.get("random-postcode")
         postcode_url = f"http://api.postcodes.io/postcodes/{postcode}"
         response = requests.get(postcode_url)
         
@@ -25,7 +27,8 @@ def weather():
     # get rain status
     rain = getall()[1]
     random_postcode = getpostcode()
-
+    location = getloc(random_postcode)
+    print(location)
     return render_template("weather.html", rain=rain, random_postcode=random_postcode)
 
 @app.route("/weatherd", methods=['GET', 'POST'])

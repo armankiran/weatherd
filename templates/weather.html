@@ -15,10 +15,11 @@
         It's not raining in UK :)
     </div>
 {% endif %}
-<p>Check if it's raining in your location:</p>
+<p>Check if it's raining in your location or search a random postcode:</p>
 <form action="/weather" method="post">
     <div class="form-group">
-        <input autofocus class="form-control" name="postcode" placeholder="Postcode" value='{{ random_postcode }}' type="text">
+        <input autofocus class="form-control" name="postcode" placeholder='{{ random_postcode }}'  type="text">
+        <input type="hidden" name="random-postcode" value="{{ random_postcode }}">
     </div>
     <button class="btn btn-primary" type="submit">Search</button>
 </form>

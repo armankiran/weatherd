@@ -116,7 +116,6 @@ def getall():
     writer.writerows(city_list)
     tfile.close()
 
-getall()
 
 def getword():
     '''get the word meaning from dict api'''

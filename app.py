@@ -10,8 +10,6 @@ def index():
 
 @app.route("/weather", methods=['GET', 'POST'])
 def weather():
-    # 
-
     '''get postcode and check validity'''
     if request.method == "POST":
         postcode = request.form.get("postcode")

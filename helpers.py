@@ -20,18 +20,24 @@ def getpostcode():
 def getloc(postcode):
     '''get location details from postcode'''
     #TODO reject incorrect postcodes
+    # get lat and lon, include country as openweather refers all UK as GB
     postcode_url = f"http://api.postcodes.io/postcodes/{postcode}"
     data = requests.get(postcode_url).json()["result"]
     location = {
     'postcode': data['postcode'],
+    'city': '',
     'country': data['country'],
     'region': data['region'],
     'latitude': data['latitude'],
-    'longitude': data['longitude'],
-    'layer': ''.join(data['lsoa'].split(' ')[0:1])
+    'longitude': data['longitude']
     }
+    # get city name as postcode api isn't reliable
+    city_url = f"http://api.openweathermap.org/geo/1.0/reverse?lat={location['latitude']}&lon={location['longitude']}&limit=1&appid={API_KEY}"
+    location['city'] = requests.get(city_url).json()[0]['name']
 
     return location
+
+getloc('CA25 5FD')
 
 def getcity(city, country):
   '''get city lat and lon by name'''
@@ -40,7 +46,8 @@ def getcity(city, country):
   city = {
     'name': response['name'],
     'lat': response['lat'],
-    'lon': response['lon']
+    'lon': response['lon'],
+    'country': response['country']
   }
 
   return city

@@ -14,13 +14,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Temp</th>
+                            <th>Temp {{ weather.temp | round }}&#8451</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Temp</td>
-                            <td>{{ weather.temp | round }}&#8451</td>
+                            <td>t</td>
+                            <td>a</td>
                         </tr>
                         <tr>
                             <td>humid</td>
@@ -33,11 +33,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive col-md-2">
+            <div class="table-responsive col-sm-5">
                 <table>
                     <thead>
                         <tr>
-                            <th>Temp</th>
+                            <th>Average UK Temp {{ average_temp | round}}&#8451</th>
                         </tr>
                     </thead>
                     <tbody>

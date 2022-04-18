@@ -6,9 +6,19 @@
 
 {% block main %}
 
+{% if rain == True %}
+    <div class="alert alert-primary" role="alert">
+        It's raining in UK :(
+    </div>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        It's not raining in UK :)
+    </div>
+{% endif %}
+<p>Check if it's raining in your location:</p>
 <form action="/weather" method="post">
     <div class="form-group">
-        <input autofocus class="form-control" name="postcode" placeholder="Postcode" type="text">
+        <input autofocus class="form-control" name="postcode" placeholder="Postcode" value='{{ random_postcode }}' type="text">
     </div>
     <button class="btn btn-primary" type="submit">Search</button>
 </form>

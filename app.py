@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, url_for
-from helpers import getloc, getweather, getword
+from helpers import getloc, getpostcode, getweather, getall, getword
 import requests
+import csv
 
 app = Flask(__name__)
 
@@ -21,8 +22,11 @@ def weather():
             return redirect(url_for("weatherd", postcode=postcode))
         elif response.status_code == 404:
             return redirect("/")
+    # get rain status
+    rain = getall()[1]
+    random_postcode = getpostcode()
 
-    return render_template("weather.html")
+    return render_template("weather.html", rain=rain, random_postcode=random_postcode)
 
 @app.route("/weatherd", methods=['GET', 'POST'])
 def weatherd():
@@ -35,10 +39,11 @@ def weatherd():
 
         # get weather data
         #TODO get unit
-        #weather = getweather(location['latitude'], location['longitude'], 'metric')
+        #weather = getweather(location['latitude'], location['longitude'])
         weather = {'dt': '15:43:42', 'sunrise': '05:09:10', 'sunset': '18:58:03', 'temp': 11.14, 'feels_like': 10.48, 'pressure': 1028, 'humidity': 83, 'dew_point': 8.36, 'uvi': 1.56, 'clouds': 11, 'visibility': 10000, 'wind_speed': 6.24, 'wind_deg': 58, 'wind_gust': 8.01, 'main': 'Clouds', 'description': 'few clouds'}
+        average_temp = getall()[0]
         word = getword()
-    return render_template("weatherd.html", location=location, weather=weather, word=word)
+    return render_template("weatherd.html", location=location, weather=weather, average_temp=average_temp, word=word)
 
 
 

@@ -9,6 +9,14 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 DATE = os.getenv("DATE")
 
+def getpostcode():
+  '''get random postcode for default value'''
+  random_postcode_url = requests.get('https://www.doogal.co.uk/CreateRandomPostcode.ashx?output=csv&count=1')
+  lines = random_postcode_url.text.splitlines()
+  reader = csv.reader(lines)
+  random_postcode = list(reader)[0][0]
+  return random_postcode
+
 def getloc(postcode):
     '''get location details from postcode'''
     #TODO reject incorrect postcodes
@@ -65,6 +73,7 @@ def getweather(lat, lon):
         'daily_id': response['daily'][0]['weather'][0]['id'],
         'daily_main': response['daily'][0]['weather'][0]['main']
     }
+    print('apicall')
     return weather
 
 
@@ -93,7 +102,7 @@ def getall():
   date = datetime.now().date()
   if total_list[0][4] != str(date):
     # iterating through it and adding cities to the city list
-    city_dict = getcitylist('citydb1.csv')
+    city_dict = getcitylist('citydb.csv')
     city_list = []
     for key, value in city_dict.items():
       # get city lat lon
@@ -107,7 +116,8 @@ def getall():
       prop_list.append(round(int(weather['daily_temp'])))
       prop_list.append(weather['daily_id'])
       prop_list.append(str(date))
-      city_list.append(prop_list) 
+      city_list.append(prop_list)
+      print('api call') 
     file.close()
     # open file in a mode to truncate as can't modify while file is in 'with open' state
     tfile = open('totaldb.csv', 'a', newline='')
@@ -127,8 +137,8 @@ def getall():
     average_temp += int(i[2])
     if int(i[3]) < 700:
       rain_status = True
-  return (average_temp, rain_status)
-  
+  return (average_temp / len(average_list), rain_status)
+
 print(getall()[0])
 
 def getword():

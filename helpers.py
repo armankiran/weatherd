@@ -38,11 +38,11 @@ def getcity(city, country):
   return city
 
 
-def getweather(lat, lon, unit):
+def getweather(lat, lon):
     '''get weather details from API'''
     lat = round(int(lat))
     lon = round(int(lon))
-    api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,alerts&units={unit}&appid={API_KEY}"
+    api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,alerts&units=metric&appid={API_KEY}"
     response = requests.get(api_url).json()
     weather = {
         'dt': datetime.utcfromtimestamp(response['current']['dt']).strftime('%H:%M:%S'),
@@ -58,7 +58,6 @@ def getweather(lat, lon, unit):
         'visibility': response['current']['visibility'],
         'wind_speed': response['current']['wind_speed'],
         'wind_deg': response['current']['wind_deg'],
-        'wind_gust': response['current']['wind_gust'],
         'main': response['current']['weather'][0]['id'],
         'main': response['current']['weather'][0]['main'],
         'description': response['current']['weather'][0]['description'],
@@ -66,7 +65,6 @@ def getweather(lat, lon, unit):
         'daily_id': response['daily'][0]['weather'][0]['id'],
         'daily_main': response['daily'][0]['weather'][0]['main']
     }
-    print(weather)
     return weather
 
 
@@ -87,28 +85,38 @@ def getcitylist(city_list):
 
 def getall():
   '''get overall data from cities with '''
-  with open('totaldb.csv', 'r+', newline='') as total:
-    reader = csv.reader(total)
-    total_list = list(reader)
-    date = datetime.now().date()
-    if total_list[1][4] != date:
-      total_list[1][4] = date
-      #TODO copy city data to totaldb csv
-      # turn citydb to nested lists
-      city_dict = getcitylist('citydb.csv')
-      city_list = []
-      # for key, value in city_dict.items():
-      #   prop_list = []
-      #   prop_list.append(key)
-      #   prop_list.append(value)
-      #   city_list.append(prop_list
-      print(city_list)
-      total.truncate(0)
-      writer = csv.writer(total)
-      writer.writerows(total_list)
-  
+  file = open('totaldb.csv', 'r+', newline='')
+  reader = csv.reader(file)
+  total_list = list(reader)
+  # check the file and update by turn citydb to nested lists by turning into dict 
+  # if file isn't up-to-date
+  date = datetime.now().date()
+  if total_list[0][4] != date:
+    # iterating through it and adding cities to the city list
+    city_dict = getcitylist('citydb.csv')
+    city_list = []
+    for key, value in city_dict.items():
+      # get city lat lon
+      city = getcity(key, value)
+      # round lat and lon for weather data
+      weather = getweather(round(int(city['lat'])), round(int(city['lon'])))
+      # list to be added every iteration
+      prop_list = []
+      prop_list.append(key)
+      prop_list.append(value)
+      prop_list.append(round(int(weather['daily_temp'])))
+      prop_list.append(weather['daily_id'])
+      prop_list.append(str(date))
+      city_list.append(prop_list)
+    # open file in a mode to truncate as can't modify while file is in 'with open' state
+    tfile = open('totaldb.csv', 'a', newline='')
+    tfile.truncate(0)
+    # write city list to csv file
+    writer = csv.writer(tfile)
+    writer.writerows(city_list)
+    tfile.close()
 
-
+getall()
 
 def getword():
     '''get the word meaning from dict api'''

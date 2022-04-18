@@ -8,7 +8,15 @@
 
 <body>
     <main>
-        <p>{{ location.city }}, {{ location.country }}, {{ postcode }} </p>
+        {% if rain == True %}
+            <div class="alert alert-primary" role="alert">
+                It's raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :(
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                It's not raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :)
+            </div>
+        {% endif %}
         <div class="row">
             <div class="table-responsive col-md-3">
                 <table>
@@ -30,10 +38,21 @@
                             <td>wind</td>
                             <td>wow</td>
                         </tr>
+                        <tr>
+                            <td>{{ word.word }}</td>
+                        </tr>
+                        <tr>
+                            <td>Adjective</td>
+                        </tr>
+                        {# TODO add definitions#}
+
+                        <tr>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive col-sm-5">
+            <div class="table-responsive col-md-3">
                 <table>
                     <thead>
                         <tr>
@@ -41,6 +60,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for city in random_cities %}
+                        <tr> 
+                            <td>{{ city[0] }}</td>
+                            <td>{{ city[1] }}</td>
+                            <td>{{ city[2] }}</td>
+                        </tr>
+                        {% endfor %}
                         <tr>
                             <td>temp</td>
                             <td>20</td>
@@ -52,6 +78,34 @@
                         <tr>
                             <td>wind</td>
                             <td>wow</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive col-md-3">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cocktail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-size: 20px;">{{ drink.name }}</td>
+                        </tr>
+                        <tr>
+                            <td> {{ drink.category }} </td>
+                        </tr>
+                        <tr>
+                            <td>Ingredients</td>
+                        </tr>
+                        {% for ingredient, measure in drink.ingredients.items() %}
+                            <tr> 
+                                <td>{{ ingredient }}: {{ measure }}</td> 
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td> {{ drink.instructions }} </td>
                         </tr>
                     </tbody>
                 </table>

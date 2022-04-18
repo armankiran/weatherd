@@ -37,8 +37,6 @@ def getloc(postcode):
 
     return location
 
-getloc('CA25 5FD')
-
 def getcity(city, country):
   '''get city lat and lon by name'''
   api_url = f"http://api.openweathermap.org/geo/1.0/direct?q={city},{country}&appid={API_KEY}"
@@ -73,7 +71,7 @@ def getweather(lat, lon):
         'visibility': response['current']['visibility'],
         'wind_speed': response['current']['wind_speed'],
         'wind_deg': response['current']['wind_deg'],
-        'main': response['current']['weather'][0]['id'],
+        'id': response['current']['weather'][0]['id'],
         'main': response['current']['weather'][0]['main'],
         'description': response['current']['weather'][0]['description'],
         'daily_temp': response['daily'][0]['temp']['day'],
@@ -99,8 +97,8 @@ def getcitylist(city_list):
   return results
 
 
-def getall():
-  '''get overall data from cities with '''
+def getall(temp=10):
+  '''get overall data from cities with selected'''
   file = open('totaldb.csv', 'r+', newline='')
   reader = csv.reader(file)
   total_list = list(reader)
@@ -134,7 +132,7 @@ def getall():
     writer.writerows(city_list)
     tfile.close()
 
-  # get average weather and rain ino
+  # get average weather and rain status
   file = open('totaldb.csv', 'r', newline='')
   reader = csv.reader(file)
   average_list = list(reader)
@@ -144,9 +142,16 @@ def getall():
     average_temp += int(i[2])
     if int(i[3]) < 700:
       rain_status = True
-  return (average_temp / len(average_list), rain_status)
+  # get list of randomly selected cities hotter than current city
+  random_cities = []
+  for i in range(5):
+    city = random.choice(average_list)
+    # if int(city[2]) > int(temp) and int(city[3]) > 700:
+    if int(city[3]) > 700:
+      random_cities.append(city)
+  print(random_cities)
+  return (average_temp / len(average_list), rain_status, random_cities)
 
-print(getall()[0])
 
 def getword():
     '''get the word meaning from dict api'''
@@ -169,3 +174,26 @@ def getword():
     except:
         return "Can't find the word"
 
+def getrandomcity():
+  '''get a dict of random cities for comparasion by reading database'''
+
+def getdrink():
+  '''get a random drink from api'''
+  response = requests.get("http://www.thecocktaildb.com/api/json/v1/1/random.php?a=Alcoholic").json()['drinks'][0]
+  drink = {
+    'name': response['strDrink'],
+    'category': response['strCategory'],
+    'glass': response['strGlass'],
+    'instructions': response['strInstructions'],
+    'thumb': response['strDrinkThumb'],
+    'ingredients': {}
+  }
+  i = 1
+  while response[f'strIngredient{i}'] != None:
+    ing = response[f'strIngredient{i}']
+    mes = response[f'strMeasure{i}']
+    drink['ingredients'][ing] = mes
+    i+= 1
+  return drink
+
+  

@@ -17,6 +17,7 @@
                 It's not raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :)
             </div>
         {% endif %}
+        <div class="container">
         <div class="row">
             <div class="table-responsive col-md-3">
                 <table>
@@ -27,20 +28,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Average UK tempeture is</td>
+                            <td>UK average</td>
                             <td>{{ average_temp | round}}&#8451</td>
-                        </tr>
-                        <tr>
-                            <td>  </td>
-                            <td>a</td>
-                        </tr>
-                        <tr>
-                            <td>humid</td>
-                            <td>very</td>
-                        </tr>
-                        <tr>
-                            <td>wind</td>
-                            <td>wow</td>
                         </tr>
                         <tr>
                             <td>{{ word.word | title }}</td>
@@ -51,17 +40,20 @@
                         <tr>
                             <td>Definitions</td>
                         </tr>
-                        {# TODO add definitions#}
+
+                        {# list all definitions
                         {% for definition in word.definitions %}
                         <tr>
                             <td>{{ definition.definition }}</td>
                         </tr>
                         {% endfor %}
-                        <tr>
-                            <td></td>
-                        </tr>
+                        #}
                     </tbody>
                 </table>
+                <span>{{ word.definitions[0].definition }}</span><br>
+                {% if word.definitions | length > 1 %}
+                <span>{{ word.definitions[1].definition }}</span>
+                {% endif %}
             </div>
             <div class="table-responsive col-md-3">
                 <table>
@@ -116,6 +108,21 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Pubs around you</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pub in pubs %}
+                            <tr> 
+                                <td>{{ pub[2] }}: {{ pub[3] }}</td> 
+                            </tr>
+                        {% endfor %}
+                </table>
+            </div>
+            <div class="table-responsive col-md-3">
+                <table>
+                    <thead>
+                        <tr>
                             <th>Random useless fact</th>
                         </tr>
                     </thead>
@@ -126,7 +133,7 @@
                 </table>
             </div>
         </div>
-
+    </div>
     </main>
 </body>
 

@@ -159,7 +159,7 @@ def getall(temp=10):
 
 def getword():
     '''get the word meaning from dict api'''
-    api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/dreich"
+    api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/sad"
   # itireate through list, find adjective, itr through definitions, create dict
     try:
         response = requests.get(api_url).json()[0]
@@ -206,7 +206,7 @@ def getpubs(postcode):
   '''get pubs around the area'''
   # get postcodes in one km area
   
-  response = requests.get(f"https://www.doogal.co.uk/GetPostcodesNear.ashx?postcode={postcode}&distance=0.5&output=csv&searchType=postcodes")
+  response = requests.get(f"https://www.doogal.co.uk/GetPostcodesNear.ashx?postcode={postcode}&distance=1&output=csv&searchType=postcodes")
   lines = response.text.splitlines()
   reader = csv.reader(lines)
   one_km = []

@@ -40,6 +40,7 @@ def weatherd():
     if request.method == "GET":
         #TODO reject symbols
         postcode = request.args.get("postcode")
+        
         location = getloc(postcode)
 
         # get weather data

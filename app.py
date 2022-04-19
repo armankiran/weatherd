@@ -42,14 +42,13 @@ def weatherd():
 
         # get weather data
         #weather = getweather(location['latitude'], location['longitude'])
-        weather = {'dt': '15:43:42', 'sunrise': '05:09:10', 'sunset': '18:58:03', 'temp': 9.1, 'feels_like': 10.48, 'pressure': 1028, 'humidity': 83, 'dew_point': 8.36, 'uvi': 1.56, 'clouds': 11, 'visibility': 10000, 'wind_speed': 6.24, 'wind_deg': 58, 'wind_gust': 8.01, 'id': '501', 'main': 'Clouds', 'description': 'few clouds'}
+        weather = {'dt': '15:43:42', 'sunrise': '05:09:10', 'sunset': '18:58:03', 'temp': 9.1, 'feels_like': 10.48, 'pressure': 1028, 'humidity': 83, 'dew_point': 8.36, 'uvi': 1.56, 'clouds': 11, 'visibility': 10000, 'wind_speed': 6.24, 'wind_deg': 58, 'wind_gust': 8.01, 'id': '801', 'main': 'Clouds', 'description': 'few clouds'}
         rain = False if int(weather['id']) > 700 else True
         average_temp = getall()[0] 
-        random_cities = getall(weather['temp'])[2]
-        print(random_cities)
+        city_rain_list = getall(weather['temp'])[2]
         drink = getdrink()
         word = getword()
-    return render_template("weatherd.html", location=location, weather=weather, average_temp=average_temp, postcode=postcode, rain=rain, random_cities=random_cities, drink=drink, word=word)
+    return render_template("weatherd.html", location=location, weather=weather, average_temp=average_temp, postcode=postcode, rain=rain, city_rain_list=city_rain_list, drink=drink, word=word)
 
 
 

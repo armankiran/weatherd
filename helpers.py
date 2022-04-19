@@ -138,19 +138,21 @@ def getall(temp=10):
   average_list = list(reader)
   average_temp = 0
   rain_status = False
+  # collect temp average and record rain status
   for i in average_list:
     average_temp += int(i[2])
     if int(i[3]) < 700:
       rain_status = True
   # get list of randomly selected cities hotter than current city
-  random_cities = []
-  for i in range(5):
-    city = random.choice(average_list)
-    # if int(city[2]) > int(temp) and int(city[3]) > 700:
+  city_rain_list = []
+  
+  for city in average_list:
+    # if int(city[2]) > int(temp):
     if int(city[3]) > 700:
-      random_cities.append(city)
-  print(random_cities)
-  return (average_temp / len(average_list), rain_status, random_cities)
+      city_rain_list.append(city)
+  #random_cities = []
+  #random_cities = random.sample(city_rain_list, 5)
+  return (average_temp / len(average_list), rain_status, city_rain_list)
 
 
 def getword():

@@ -27,6 +27,10 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td>Average UK tempeture is</td>
+                            <td>{{ average_temp | round}}&#8451</td>
+                        </tr>
+                        <tr>
                             <td>t</td>
                             <td>a</td>
                         </tr>
@@ -39,13 +43,20 @@
                             <td>wow</td>
                         </tr>
                         <tr>
-                            <td>{{ word.word }}</td>
+                            <td>{{ word.word | title }}</td>
                         </tr>
                         <tr>
-                            <td>Adjective</td>
+                            <td>adjective</td>
+                        </tr>
+                        <tr>
+                            <td>Definitions</td>
                         </tr>
                         {# TODO add definitions#}
-
+                        {% for definition in word.definitions %}
+                        <tr>
+                            <td>{{ definition.definition }}</td>
+                        </tr>
+                        {% endfor %}
                         <tr>
                             <td></td>
                         </tr>
@@ -56,15 +67,15 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Average UK Temp {{ average_temp | round}}&#8451</th>
+                            <th>Cities without rain</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for city in random_cities %}
+
+                        {% for city in city_rain_list %}
                         <tr> 
-                            <td>{{ city[0] }}</td>
-                            <td>{{ city[1] }}</td>
-                            <td>{{ city[2] }}</td>
+                            <td>{{ city[0] }}, {{ city[1] }}</td>
+                            <td>{{ city[2] }}&#8451</td>
                         </tr>
                         {% endfor %}
                         <tr>

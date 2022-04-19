@@ -4,10 +4,13 @@ import os
 import requests
 import csv
 import random
+import sqlite3 as db
+
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 DATE = os.getenv("DATE")
+con = db.connect('pubs.db', check_same_thread=False)
 
 def getpostcode():
   '''get random postcode for default value'''
@@ -143,9 +146,8 @@ def getall(temp=10):
     average_temp += int(i[2])
     if int(i[3]) < 700:
       rain_status = True
-  # get list of randomly selected cities hotter than current city
+  # get rainy cities
   city_rain_list = []
-  
   for city in average_list:
     # if int(city[2]) > int(temp):
     if int(city[3]) > 700:
@@ -157,7 +159,7 @@ def getall(temp=10):
 
 def getword():
     '''get the word meaning from dict api'''
-    api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/severe"
+    api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/dreich"
   # itireate through list, find adjective, itr through definitions, create dict
     try:
         response = requests.get(api_url).json()[0]
@@ -175,9 +177,6 @@ def getword():
     # return error if word doesn't exist
     except:
         return "Can't find the word"
-
-def getrandomcity():
-  '''get a dict of random cities for comparasion by reading database'''
 
 def getdrink():
   '''get a random drink from api'''
@@ -198,4 +197,28 @@ def getdrink():
     i+= 1
   return drink
 
+def getfact():
+  '''get random useless fact'''
+  fact = requests.get("https://uselessfacts.jsph.pl//random.json?language=en").json()['text']
+  return fact
+
+def getpubs(postcode):
+  '''get pubs around the area'''
+  # get postcodes in one km area
+  response = requests.get("https://www.doogal.co.uk/GetPostcodesNear.ashx?postcode=bh2%205pw&distance=1&output=csv&searchType=postcodes")
+  lines = response.text.splitlines()
+  reader = csv.reader(lines)
+  one_km = []
+  for row in reader:
+    one_km.append(row[0])
+
+  # get pubs from postcodes
+  pub_list = con.execute('SELECT * FROM pubs WHERE postcode IN (%s)' % ','.join('?'*len(one_km)), one_km).fetchall()
+  pub_list = list(pub_list)
+  # turn from tuple list to nested list
+  pubs = []
+  for pub in pub_list:
+    pubs.append(list(pub))
   
+  return pubs
+

@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for
-from helpers import getcity, getloc, getpostcode, getweather, getall, getdrink, getword
+from helpers import getcity, getloc, getpostcode, getweather, getall, getdrink, getword, getfact, getpubs
 import requests
 import csv
 
@@ -31,6 +31,8 @@ def weather():
     print(location)
     return render_template("weather.html", rain=rain, random_postcode=random_postcode)
 
+
+
 @app.route("/weatherd", methods=['GET', 'POST'])
 def weatherd():
     '''get postcode from url and return location and weather data'''
@@ -48,7 +50,9 @@ def weatherd():
         city_rain_list = getall(weather['temp'])[2]
         drink = getdrink()
         word = getword()
-    return render_template("weatherd.html", location=location, weather=weather, average_temp=average_temp, postcode=postcode, rain=rain, city_rain_list=city_rain_list, drink=drink, word=word)
+        fact = getfact()
+        pubs = getpubs(postcode)
+    return render_template("weatherd.html", location=location, weather=weather, average_temp=average_temp, postcode=postcode, rain=rain, city_rain_list=city_rain_list, drink=drink, word=word, fact=fact, pubs=pubs)
 
 
 

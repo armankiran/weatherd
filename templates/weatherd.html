@@ -22,7 +22,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Temp {{ weather.temp | round }}&#8451</th>
+                            <th>Temp {{ weather.temp | round }}&#8451, {{weather.main}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,7 +31,7 @@
                             <td>{{ average_temp | round}}&#8451</td>
                         </tr>
                         <tr>
-                            <td>t</td>
+                            <td>  </td>
                             <td>a</td>
                         </tr>
                         <tr>
@@ -78,18 +78,6 @@
                             <td>{{ city[2] }}&#8451</td>
                         </tr>
                         {% endfor %}
-                        <tr>
-                            <td>temp</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>humid</td>
-                            <td>very</td>
-                        </tr>
-                        <tr>
-                            <td>wind</td>
-                            <td>wow</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -108,6 +96,9 @@
                             <td> {{ drink.category }} </td>
                         </tr>
                         <tr>
+                            <td> {{ drink.glass }}</td>
+                        </tr>
+                        <tr>
                             <td>Ingredients</td>
                         </tr>
                         {% for ingredient, measure in drink.ingredients.items() %}
@@ -121,9 +112,18 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive col-md-2">
-                <p>{{ word.word }}</p>
-                <p>{{word.definitions.0.definition}}</p>
+            <div class="table-responsive col-md-3">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Random useless fact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ fact }}</td>
+                        </tr>
+                </table>
             </div>
         </div>
 

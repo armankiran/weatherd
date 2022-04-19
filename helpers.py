@@ -205,7 +205,8 @@ def getfact():
 def getpubs(postcode):
   '''get pubs around the area'''
   # get postcodes in one km area
-  response = requests.get("https://www.doogal.co.uk/GetPostcodesNear.ashx?postcode=bh2%205pw&distance=1&output=csv&searchType=postcodes")
+  
+  response = requests.get(f"https://www.doogal.co.uk/GetPostcodesNear.ashx?postcode={postcode}&distance=0.5&output=csv&searchType=postcodes")
   lines = response.text.splitlines()
   reader = csv.reader(lines)
   one_km = []

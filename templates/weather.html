@@ -11,11 +11,11 @@
     <main>
         <div class="container">
             {% if rain == True %}
-            <span class="tdata1">It's raining in UK :(</span>
+            <span class="tdata1">it's raining in UK :(</span>
             {% else %}
-            <span class="tdata1">It's not raining in UK :)</span>
+            <span class="tdata1">it's not raining in UK :)</span>
             {% endif %}
-            <p>Check if it's raining in your location or search a random postcode:</p>
+            <p>check if it's raining in your location or search a random postcode:</p>
             <form action="/weather" method="post">
                 <div class="form-group">
                     <input name="postcode" placeholder='{{ random_postcode }}'  type="text">
@@ -23,6 +23,19 @@
                 </div>
                 <button class="btn btn-outline-dark" type="submit">Search</button>
             </form>
+            <span>thanks for the APIs used</span><br>
+            <ul>
+                <li><a href="">postcodes.io</a></li>
+                <li><a href="">doogal.co.uk</a></li>
+                <li><a href="">openweathermap.org</a></li>
+                <li><a href="">dictionaryapi.dev</a></li>
+                <li><a href="">thecocktaildb.com</a></li>
+                <li><a href="">uselessfacts.jsph.pl</a></li>
+            </ul>
+            
+            
+            <span></span><br>
+            <span></span>
         </div>
     </main>
 </body>

@@ -2,6 +2,23 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+input {
+    height: 35px;
+}
+
+input:focus {
+    border: 0px solid #555;
+}
+
+
+.mbot20 {
+    margin-bottom: 20px;
+}
+
+.top20 {
+    margin-top: 20px;
+}
+
 thead {
     font-size: larger;
 }
@@ -20,3 +37,8 @@ thead {
     font-weight: bold;
     color: #6b6b6b;
 }
+
+.title3 {
+    font-weight: bold;
+}
+

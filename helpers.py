@@ -50,7 +50,6 @@ def getcity(city, country):
     'lon': response['lon'],
     'country': response['country']
   }
-
   return city
 
 
@@ -125,7 +124,6 @@ def getall(temp=10, rain=True):
       prop_list.append(weather['daily_id'])
       prop_list.append(str(date))
       city_list.append(prop_list)
-      print('api call') 
     file.close()
     # open file in a mode to truncate as can't modify while file is in 'with open' state
     tfile = open('totaldb.csv', 'a', newline='')
@@ -151,6 +149,7 @@ def getall(temp=10, rain=True):
     else:
       dry_cities.append(city)
   wet_cities_size = len(wet_cities)
+
   # check rain status
   rain_status = True if wet_cities_size > 0 else False
   # get dry cities
@@ -159,14 +158,7 @@ def getall(temp=10, rain=True):
   else:
     cities = random.sample(wet_cities, 5) if len(wet_cities) > 5 else wet_cities
 
-    #cities = random.sample(cities, 5)
-  # select random cities if list is over 5
-  # if wet_cities_size > 5:
-  #   
-
-  
   return (average_temp / len(average_list), rain_status, cities, wet_cities_size)
-getall()
 
 def getword(rain):
     '''select the word csv based on rain status of the city, then return the word meaning from dict api'''
@@ -232,21 +224,26 @@ def getfact():
 def getpubs(postcode):
   '''get pubs around the area'''
   # get postcodes in one km area
-  
-  response = requests.get(f"https://www.doogal.co.uk/GetPostcodesNear.ashx?postcode={postcode}&distance=1&output=csv&searchType=postcodes")
+  response = requests.get(f"https://www.doogal.co.uk/GetPostcodesNear.ashx?postcode={postcode}&distance=0.5&output=csv&searchType=postcodes")
   lines = response.text.splitlines()
   reader = csv.reader(lines)
   one_km = []
   for row in reader:
     one_km.append(row[0])
-
   # get pubs from postcodes
   pub_list = con.execute('SELECT * FROM pubs WHERE postcode IN (%s)' % ','.join('?'*len(one_km)), one_km).fetchall()
   pub_list = list(pub_list)
   # turn from tuple list to nested list
   pubs = []
   for pub in pub_list:
+    address = ''
+    for i in range(3):
+      address += pub[i+2] + ''
+    address = address.replace(' ', '+')
+    address = address.replace(',', '%2C')
+    address = address.replace("'", '%27')
+    pub += (address, )
     pubs.append(list(pub))
-  
+    
   return pubs
 

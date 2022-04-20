@@ -8,16 +8,12 @@
 
 <body>
     <main>
-        {% if rain == True %}
-            <div class="alert alert-primary" role="alert">
-                It's raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :(
-            </div>
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                It's not raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :)
-            </div>
-        {% endif %}
         <div class="container">
+            {% if rain == True %}
+                <span class="tdata1">It's raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :(</span>
+            {% else %}
+                <span class="tdata1">It's not raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :)</span>
+            {% endif %}          
         <div class="row">
             <div class="table-responsive col-md-3">
                 <table>
@@ -36,36 +32,40 @@
                             <td class="title1">some stuff about today</td>
                         </tr>
                         <tr>
-                            <td class="title2">average temp in UK is:</td>
+                            <td class="title2">average temp in UK is</td>
 
                         </tr>
                         <tr>
                             <td class="title1">{{ average_temp | int}}C</td>
                         </tr>
                         {% if wet_cities_size > 0 %}
-
-                        
-                        <tr>
-                            <td><span class="title2">it rained in</span> <span class="title1">{{ wet_cities_size }} cities</span></td>
-                        </tr>
-                        <tr>
-                            <td class="title2">some cities without rain</td>
-                        </tr>
-                        {% for city in cities %}
-                        <tr> 
-                            <td>{{ city[0] }}, {{ city[1] }} </td>
-                            <td>{{ city[2] }}C</td>
-                        </tr>
-                        {% endfor %}
+                            <tr>
+                                <td><span class="title2">it rained in</span> <span class="title1">{{ wet_cities_size }} cities</span></td>
+                            </tr>
+                            {% if rain == True %}
+                            <tr>
+                                <td class="title2">some cities without rain</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td class="title2">some cities with rain</td>
+                            </tr>                       
+                            {% endif %}
+                            {% for city in cities %}
+                            <tr> 
+                                <td><span class="title3">{{ city[0] }}</span>, {{ city[1] }} </td>
+                                <td>{{ city[2] }}C</td>
+                            </tr>
+                            {% endfor %}
                         {% endif %}
                         <tr>
-                            <td class="tdata1">{{ word.word | title }}</td>
+                            <td class="tdata1">{{ word.word  }}</td>
                         </tr>
                         <tr>
                             <td class="title2">adjective</td>
                         </tr>
                         <tr>
-                            <td>Definitions</td>
+                            <td class="title1">definitions</td>
                         </tr>
                         {# list all definitions
                         {% for definition in word.definitions %}
@@ -76,12 +76,12 @@
                         #}
                     </tbody>
                 </table>
-                <span class="definition">{{ word.definitions[0].definition }}</span><br>
+                <span class="title1">.</span>{{ word.definitions[0].definition | lower}}<br>
                 {% if word.definitions | length > 1 %}
-                <span class="definition">{{ word.definitions[1].definition }}</span>
+                    <span class="title1">.</span>{{ word.definitions[1].definition | lower }}
                 {% endif %}
             </div>
-            <div class="table-responsive col-md-3">
+            <div class="table-responsive col-md-3 sec-tables top20">
                 <table>
                     <thead>
                         <tr>
@@ -112,7 +112,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive col-md-3">
+            <div class="table-responsive col-md-3 mbot20">
                 <table>
                     <thead>
                         <tr>
@@ -122,14 +122,23 @@
                     <tbody>
                         {% for pub in pubs %}
                             <tr> 
-                                <td class="title1">{{ pub[2] }}</td> 
+                                <td class="title3">{{ pub[2] }}</a></td> 
                             </tr>
                             <tr> 
-                                <td class="title2">{{ pub[3] }}, {{ pub[4] }}</td> 
+                                <td class="title2"><a href='https://www.google.com/search?q={{pub[10]}}' class="title2">{{ pub[3] }}, {{ pub[4] }}</a></td> 
                             </tr>
                         {% endfor %}
-                </table><br>
-                <span >Random useless fact:</span><br>
+                </table>
+            </div>
+            <span> </span>
+            <div class="table-responsive col-md-3 mbot20">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>random useless fact</th>
+                        </tr>
+                    </thead>
+                </table>
                 <span> {{ fact }} </span>
             </div>
         </div>

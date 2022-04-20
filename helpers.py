@@ -100,7 +100,7 @@ def getcitylist(city_list):
   return results
 
 
-def getall(temp=10):
+def getall(temp=10, rain=True):
   '''get overall data from cities with selected'''
   file = open('totaldb.csv', 'r+', newline='')
   reader = csv.reader(file)
@@ -140,27 +140,53 @@ def getall(temp=10):
   reader = csv.reader(file)
   average_list = list(reader)
   average_temp = 0
-  rain_status = False
-  # collect temp average and record rain status
   for i in average_list:
     average_temp += int(i[2])
-    if int(i[3]) < 700:
-      rain_status = True
-  # get rainy cities
-  city_rain_list = []
+  # get rainy cities and number
+  dry_cities = []
+  wet_cities = []
   for city in average_list:
-    # if int(city[2]) > int(temp):
-    if int(city[3]) > 700:
-      city_rain_list.append(city)
-  #random_cities = []
-  #random_cities = random.sample(city_rain_list, 5)
-  return (average_temp / len(average_list), rain_status, city_rain_list)
+    if int(city[3]) < 700:
+      wet_cities.append(city)
+    else:
+      dry_cities.append(city)
+  wet_cities_size = len(wet_cities)
+  # check rain status
+  rain_status = True if wet_cities_size > 0 else False
+  # get dry cities
+  if rain == True:
+    cities = random.sample(dry_cities, 5) if len(dry_cities) > 5 else dry_cities
+  else:
+    cities = random.sample(wet_cities, 5) if len(wet_cities) > 5 else wet_cities
 
+    #cities = random.sample(cities, 5)
+  # select random cities if list is over 5
+  # if wet_cities_size > 5:
+  #   
 
-def getword():
-    '''get the word meaning from dict api'''
-    api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/sad"
-  # itireate through list, find adjective, itr through definitions, create dict
+  
+  return (average_temp / len(average_list), rain_status, cities, wet_cities_size)
+getall()
+
+def getword(rain):
+    '''select the word csv based on rain status of the city, then return the word meaning from dict api'''
+    # TODO update the words lists
+    # check rain status and return list from corresponding csv file
+    word_list = []
+    if rain == True:
+      with open('rainywords.csv', newline='') as inputfile:
+        for row in csv.reader(inputfile):
+          word_list.append(row[0])
+
+    else:
+      with open('sunnywords.csv', newline='') as inputfile:
+        for row in csv.reader(inputfile):
+          word_list.append(row[0])
+
+    # select a random word from provided list and push it to the api
+    word = random.choice(word_list)
+    api_url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
+    # itireate through list, find adjective, itr through definitions, create dict
     try:
         response = requests.get(api_url).json()[0]
         for i in range(len(response['meanings'])):
@@ -177,6 +203,7 @@ def getword():
     # return error if word doesn't exist
     except:
         return "Can't find the word"
+
 
 def getdrink():
   '''get a random drink from api'''

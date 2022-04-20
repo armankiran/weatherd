@@ -1,0 +1,22 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+thead {
+    font-size: larger;
+}
+
+.tdata1 {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.title1 {
+    font-size: large;
+    font-weight: bold;
+}
+
+.title2 {
+    font-weight: bold;
+    color: #6b6b6b;
+}

@@ -23,24 +23,50 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Temp {{ weather.temp | round }}&#8451, {{weather.main}}</th>
+                            <th>temp</th>
+                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>UK average</td>
-                            <td>{{ average_temp | round}}&#8451</td>
+                            <td><span class="tdata1">{{ weather.temp | int }}C</span> {{weather.main}}</td>
                         </tr>
                         <tr>
-                            <td>{{ word.word | title }}</td>
+                            <td class="title1">some stuff about today</td>
                         </tr>
                         <tr>
-                            <td>adjective</td>
+                            <td class="title2">average temp in UK is:</td>
+
+                        </tr>
+                        <tr>
+                            <td class="title1">{{ average_temp | int}}C</td>
+                        </tr>
+                        {% if wet_cities_size > 0 %}
+
+                        
+                        <tr>
+                            <td><span class="title2">it rained in</span> <span class="title1">{{ wet_cities_size }} cities</span></td>
+                        </tr>
+                        <tr>
+                            <td class="title2">some cities without rain</td>
+                        </tr>
+                        {% for city in cities %}
+                        <tr> 
+                            <td>{{ city[0] }}, {{ city[1] }} </td>
+                            <td>{{ city[2] }}C</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                        <tr>
+                            <td class="tdata1">{{ word.word | title }}</td>
+                        </tr>
+                        <tr>
+                            <td class="title2">adjective</td>
                         </tr>
                         <tr>
                             <td>Definitions</td>
                         </tr>
-
                         {# list all definitions
                         {% for definition in word.definitions %}
                         <tr>
@@ -50,52 +76,34 @@
                         #}
                     </tbody>
                 </table>
-                <span>{{ word.definitions[0].definition }}</span><br>
+                <span class="definition">{{ word.definitions[0].definition }}</span><br>
                 {% if word.definitions | length > 1 %}
-                <span>{{ word.definitions[1].definition }}</span>
+                <span class="definition">{{ word.definitions[1].definition }}</span>
                 {% endif %}
             </div>
             <div class="table-responsive col-md-3">
                 <table>
                     <thead>
                         <tr>
-                            <th>Cities without rain</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {% for city in city_rain_list %}
-                        <tr> 
-                            <td>{{ city[0] }}, {{ city[1] }}</td>
-                            <td>{{ city[2] }}&#8451</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="table-responsive col-md-3">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Cocktail</th>
+                            <th>cocktail</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="font-size: 20px;">{{ drink.name }}</td>
+                            <td class="tdata1">{{ drink.name }}</td>
                         </tr>
                         <tr>
-                            <td> {{ drink.category }} </td>
+                            <td><span class="title2">category:</span> {{ drink.category }} </td>
                         </tr>
                         <tr>
-                            <td> {{ drink.glass }}</td>
+                            <td><span class="title2">glass:</span> {{ drink.glass }}</td>
                         </tr>
                         <tr>
-                            <td>Ingredients</td>
+                            <td class="title1">Ingredients</td>
                         </tr>
                         {% for ingredient, measure in drink.ingredients.items() %}
                             <tr> 
-                                <td>{{ ingredient }}: {{ measure }}</td> 
+                                <td><span class="title2">{{ ingredient|lower }}:</span> {{ measure }}</td> 
                             </tr>
                         {% endfor %}
                         <tr>
@@ -108,29 +116,21 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Pubs around you</th>
+                            <th>pubs around you</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for pub in pubs %}
                             <tr> 
-                                <td>{{ pub[2] }}: {{ pub[3] }}</td> 
+                                <td class="title1">{{ pub[2] }}</td> 
+                            </tr>
+                            <tr> 
+                                <td class="title2">{{ pub[3] }}, {{ pub[4] }}</td> 
                             </tr>
                         {% endfor %}
-                </table>
-            </div>
-            <div class="table-responsive col-md-3">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Random useless fact</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ fact }}</td>
-                        </tr>
-                </table>
+                </table><br>
+                <span >Random useless fact:</span><br>
+                <span> {{ fact }} </span>
             </div>
         </div>
     </div>

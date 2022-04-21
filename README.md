@@ -108,5 +108,6 @@ words for to be used if it's raining in location
 -   layout.html
 -   weather.html
 -   weatherd.html
+
 ## static
--	styles.css
+-   styles.css

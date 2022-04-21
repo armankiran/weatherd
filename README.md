@@ -110,4 +110,4 @@ words for to be used if it's raining in location
 -   weatherd.html
 
 ## static
--   styles
+-   style.css

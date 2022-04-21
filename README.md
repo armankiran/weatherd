@@ -41,7 +41,7 @@ Main file of the Flask application.
 
 **def weather()** renders the weather.html page. 
 Requests postcode from form input. Value of the input is set random with doogal.co.uk API call for random search.
-Also rain status returned by [getall()](https://github.com/armankiran/weatherd/blob/main/README.md###getall()) function. 
+Also rain status returned by [getall()](getall()) function. 
 
 **def weatherd()** renders the weatherd.html page based on the postcode returned by **def weather()**. Location details are returned by [getloc()](https://github.com/armankiran/weatherd/blob/main/README.md###getloc()) and passed into the [getweather()](https://github.com/armankiran/weatherd/blob/main/README.md###getweather()) for the weather info. 
 

@@ -53,11 +53,8 @@ def weatherd():
         drink = getdrink()
         word = getword(rain)
         fact = getfact()
-        pubs = getpubs(postcode)
-    return render_template("weatherd.html", location=location, weather=weather, average_temp=average_temp, postcode=postcode, rain=rain, cities=cities, wet_cities_size=wet_cities_size, drink=drink, word=word, fact=fact, pubs=pubs)
-
-
-
+        pubs = getpubs(location['postcode'])
+    return render_template("weatherd.html", location=location, weather=weather, average_temp=average_temp, rain=rain, cities=cities, wet_cities_size=wet_cities_size, drink=drink, word=word, fact=fact, pubs=pubs)
 
 
 

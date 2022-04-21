@@ -34,6 +34,7 @@ def getloc(postcode):
     'latitude': data['latitude'],
     'longitude': data['longitude']
     }
+    print(location)
     # get city name as postcode api isn't reliable
     city_url = f"http://api.openweathermap.org/geo/1.0/reverse?lat={location['latitude']}&lon={location['longitude']}&limit=1&appid={API_KEY}"
     location['city'] = requests.get(city_url).json()[0]['name']

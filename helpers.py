@@ -100,7 +100,7 @@ def getcitylist(city_list):
 
 
 def getall(temp=10, rain=True):
-  '''get overall data from cities with selected'''
+  '''get overall data from cities'''
   file = open('totaldb.csv', 'r+', newline='')
   reader = csv.reader(file)
   total_list = list(reader)
@@ -159,6 +159,7 @@ def getall(temp=10, rain=True):
     cities = random.sample(wet_cities, 5) if len(wet_cities) > 5 else wet_cities
 
   return (average_temp / len(average_list), rain_status, cities, wet_cities_size)
+
 
 def getword(rain):
     '''select the word csv based on rain status of the city, then return the word meaning from dict api'''

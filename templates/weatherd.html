@@ -15,7 +15,7 @@
                 <span class="tdata1">It's not raining in {{ location.city }}, {{ location.country }}, {{ postcode }} :)</span>
             {% endif %}          
         <div class="row">
-            <div class="table-responsive col-md-3">
+            <div class="table-responsive col-md-3 top20">
                 <table>
                     <thead>
                         <tr>
@@ -48,7 +48,7 @@
                             </tr>
                             {% else %}
                             <tr>
-                                <td class="title2">some cities with rain</td>
+                                <td><span class="title2">some cities </span><span class="title1">with rain</span> </td>
                             </tr>                       
                             {% endif %}
                             {% for city in cities %}
@@ -81,7 +81,7 @@
                     <span class="title1">.</span>{{ word.definitions[1].definition | lower }}
                 {% endif %}
             </div>
-            <div class="table-responsive col-md-3 sec-tables top20">
+            <div class="table-responsive col-md-3 sec-tables top20 bot20">
                 <table>
                     <thead>
                         <tr>
@@ -112,12 +112,18 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive col-md-3 mbot20">
+            <div class="table-responsive col-md-3 top20">
                 <table>
                     <thead>
+                        {% if pubs | length > 0%}
                         <tr>
                             <th>pubs around you</th>
                         </tr>
+                        {% else %}
+                        <tr>
+                            <th>there are no pubs around you :(</th>
+                        </tr>
+                        {% endif %}
                     </thead>
                     <tbody>
                         {% for pub in pubs %}
@@ -131,7 +137,7 @@
                 </table>
             </div>
             <span> </span>
-            <div class="table-responsive col-md-3 mbot20">
+            <div class="table-responsive col-md-3 top20">
                 <table>
                     <thead>
                         <tr>
@@ -140,8 +146,28 @@
                     </thead>
                 </table>
                 <span> {{ fact }} </span>
+                
+                {# 
+                <span class="title1 ">thanks for the APIs used</span><br>
+                <ul>
+                    <li><a href="https://postcodes.io/" class="title2">postcodes.io</a></li>
+                    <li><a href="https://www.doogal.co.uk/" class="title2">doogal.co.uk</a></li>
+                    <li><a href="https://dictionaryapi.dev/" class="title2">dictionaryapi.dev</a></li>
+                    <li><a href="https://thecocktaildb.com/" class="title2">thecocktaildb.com</a></li>
+                    <li><a href="https://uselessfacts.jsph.pl/" class="title2">uselessfacts.jsph.pl</a></li>
+                    <li><a href="https://openweathermap.org/" class="title2">openweathermap.org</a></li>
+                </ul>
+                <span class="title1">for the pub data</span>
+                <ul>
+                    <li><a href="https://www.getthedata.com/open-pubs" class="title2">getthedata.com/open-pubs</a></li>
+                </ul>
+                #}
+                
             </div>
+            </div>
+            
         </div>
+
     </div>
     </main>
 </body>

@@ -27,7 +27,6 @@ def weather():
     # get rain status
     rain = getall()[1]
     random_postcode = getpostcode()
-    location = getloc(random_postcode)
     return render_template("weather.html", rain=rain, random_postcode=random_postcode)
 
 

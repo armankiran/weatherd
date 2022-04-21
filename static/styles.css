@@ -2,6 +2,24 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.mainpage {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.mainpage {
+    font-size: 50px;
+}
+
+.nav-link, .navbar-brand{
+    text-decoration: none;
+    color: black;
+}
+
 input {
     height: 35px;
 }
@@ -42,3 +60,6 @@ thead {
     font-weight: bold;
 }
 
+a:hover {
+    color: #6b6b6b
+}

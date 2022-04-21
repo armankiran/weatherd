@@ -79,7 +79,7 @@ Rest of the function divies cities to wet and dry based on if they received/are 
 Lastly, function will return a list of randomly selected 5 cities based on if it is raining in the input location or not. The list is limited at 5 as it fits with the layout of the page.
 
 ### getword()
-Passes a random word from [sunnywords.csv](https://github.com/armankiran/weatherd/blob/main/README.md##databases) or [rainywords.csv](https://github.com/armankiran/weatherd/blob/main/README.md##databases) files based on if it is raining or not in input location and returns definitions for that word. Only adjective definitions are returned.
+Passes a random word from [sunnywords.csv](databases) or [rainywords.csv](https://github.com/armankiran/weatherd/blob/main/README.md##databases) files based on if it is raining or not in input location and returns definitions for that word. Only adjective definitions are returned.
 
 ### getdrink()
 Returns a random alcoholic drink from [thecocktaildb.com](thecocktaildb.com/api.php). Ingredient values are added to returned dictionary by iterating through the response rather than direct copy. as it is easier to loop over in Jinja instead of checking for None values in [weatherd.html](https://github.com/armankiran/weatherd/blob/main/README.md###weatherd.html).

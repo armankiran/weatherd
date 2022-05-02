@@ -1,7 +1,7 @@
 # weathered
 Get weather and area data based in your postcode in UK!
 
-This my final project for [Harvard CS50x](https://cs50.harvard.edu/x/2022/project/) - a Flask weather application with some tweaks works solely on UK postcodes. Now you can check if it always rain in UK!
+This my final project for [Harvard CS50x](https://cs50.harvard.edu/x/2022/project/) - a Flask weather application with some tweaks works solely on UK postcodes. Now you can check if it always rains in UK!
 ## Files
 * main
 	* app.py
